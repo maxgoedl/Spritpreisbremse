@@ -141,7 +141,7 @@ function FuelChart({ fuel, mode }) {
           icon={ArrowDownCircle}
         />
         <StatCard
-          title="Verschiebung im Benchmark"
+          title="Veränderung im Spread"
           value={`${shift < 0 ? '-' : '+'}${Math.abs(shift * 100).toFixed(1)} ct/L`}
           subtitle="Nach 1.4. relativ zu Deutschland"
           icon={Icon}
@@ -152,9 +152,9 @@ function FuelChart({ fuel, mode }) {
         <div className="chart-head">
           <h2>{cfg.label}</h2>
           <p>
-            {mode === 'absolute' && 'Tagespreise in Österreich und Deutschland.'}
-            {mode === 'index' && 'Beide Reihen auf 31.03.2026 = 100 normiert, um den Bruch rund um den Eingriff sichtbar zu machen.'}
-            {mode === 'spread' && 'Spread = Österreich minus Deutschland. Eine fallende Linie bedeutet: Österreich wird relativ günstiger.'}
+            {mode === 'absolute' && 'Tagesdurchschnittspreise in Österreich und Deutschland (in €).'}
+            {mode === 'index' && 'Index der Tagesdurchschnittspreise auf 31.03.2026 = 100 normiert.'}
+            {mode === 'spread' && 'Differenz zwischen Tagesdurchschnittspreisen in Österreich und Deutschland (in €).'}
           </p>
         </div>
 
