@@ -227,7 +227,7 @@ export default function App() {
           </div>
           <div className="card aside-card">
             <h3>Was hier hilft</h3>
-            <p>Drei Blickwinkel sind eingebaut: absolute Preise, ein auf den 31. März normierter Index und der direkte Spread AT − DE. Für eine schnelle Einordnung ist der Spread meist am aussagekräftigsten.</p>
+            <p>Drei Blickwinkel sind verfügbar: absolute Preise, ein auf den 31. März normierter Index und der Spread AT − DE. Für eine schnelle Einordnung ist der Spread meist am aussagekräftigsten.</p>
           </div>
         </header>
 
@@ -247,7 +247,7 @@ export default function App() {
 
         <footer className="card sources-card">
           <h3>Datenquellen</h3>
-          <p>Österreich: E-Control Austria — <a href="https://www.e-control.at" target="_blank" rel="noreferrer">www.e-control.at</a></p>
+          <p>Österreich: E-Control — <a href="https://www.e-control.at" target="_blank" rel="noreferrer">www.e-control.at</a></p>
           <p>Deutschland: <a href="https://derspritfuchs.de/preise/preisentwicklung" target="_blank" rel="noreferrer">derspritfuchs.de/preise/preisentwicklung</a></p>
         </footer>
       </div>
