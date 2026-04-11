@@ -226,7 +226,7 @@ export default function App() {
             <p className="lead">Interaktive Gegenüberstellung von Benzin- und Dieselpreisen für Österreich und Deutschland. Der Fokus liegt darauf, ob sich Österreich nach dem Eingriff relativ zum deutschen Benchmark anders bewegt.</p>
           </div>
           <div className="card aside-card">
-            <h3>Was hier hilft</h3>
+            <h3>Was hier dargestellt wird</h3>
             <p>Drei Blickwinkel sind verfügbar: absolute Preise, ein auf den 31. März normierter Index und der Spread AT − DE. Für eine schnelle Einordnung ist der Spread meist am aussagekräftigsten.</p>
           </div>
         </header>
@@ -247,7 +247,7 @@ export default function App() {
 
         <footer className="card sources-card">
           <h3>Datenquellen</h3>
-          <p>Österreich: E-Control — <a href="https://www.e-control.at" target="_blank" rel="noreferrer">www.e-control.at</a></p>
+          <p>Österreich: E-Control — <a href="https://www.e-control.at/documents/1785851/1811582/2026_04_10_Spritpreisbremse_Pressemappe_Final.pdf/b0e89414-7de1-d57b-012d-9b31c8593e20?t=1775809883097" target="_blank" rel="noreferrer">www.e-control.at</a></p>
           <p>Deutschland: <a href="https://derspritfuchs.de/preise/preisentwicklung" target="_blank" rel="noreferrer">derspritfuchs.de/preise/preisentwicklung</a></p>
         </footer>
       </div>
