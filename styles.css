@@ -1,0 +1,230 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #1d4ed8; }
+button { font: inherit; }
+
+.app-shell {
+  min-height: 100vh;
+  padding: 32px 20px 48px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.badge-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-light {
+  background: white;
+  border: 1px solid #cbd5e1;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 0.9fr;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.lead {
+  margin-top: 14px;
+  max-width: 760px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #475569;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+}
+
+.aside-card, .sources-card {
+  padding: 20px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.aside-card h3, .sources-card h3, .note-box h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.controls-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toggle {
+  border: 1px solid #cbd5e1;
+  background: white;
+  color: #0f172a;
+  border-radius: 16px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.toggle.active {
+  background: #0f172a;
+  color: white;
+  border-color: #0f172a;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.eyebrow {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.stat-value {
+  margin-top: 4px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.stat-subtitle {
+  margin-top: 4px;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.icon-wrap {
+  display: inline-flex;
+  padding: 12px;
+  border-radius: 18px;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.chart-card {
+  padding: 24px;
+}
+
+.chart-head h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.chart-head p {
+  margin-top: 8px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.chart-wrap {
+  width: 100%;
+  height: 430px;
+  margin-top: 12px;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.note-box {
+  background: #f8fafc;
+  border-radius: 20px;
+  padding: 16px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.note-box p, .sources-card p, .aside-card p {
+  margin: 0;
+}
+
+.tooltip-box {
+  background: rgba(255,255,255,0.97);
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+}
+
+.tooltip-date {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.muted {
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.sources-card {
+  margin-top: 24px;
+}
+
+@media (max-width: 960px) {
+  .hero-grid,
+  .stats-grid,
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-wrap {
+    height: 380px;
+  }
+}
