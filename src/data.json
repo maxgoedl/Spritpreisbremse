@@ -465,7 +465,13 @@
     "at_diesel": 2.16,
     "at_e10": 1.76,
     "at_e10_index": 90.72164948453609,
-    "at_diesel_index": 95.57522123893806
+    "at_diesel_index": 95.57522123893806,
+    "de_e10": 2.088,
+    "de_diesel": 2.294,
+    "de_e10_index": 97.52452125175151,
+    "de_diesel_index": 97.95046968403074,
+    "spread_e10": -0.328,
+    "spread_diesel": -0.134
   },
   {
     "date": "2026-04-11",
