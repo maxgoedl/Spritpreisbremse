@@ -191,7 +191,7 @@ function FuelChart({ fuel, mode }) {
         <div className="notes-grid">
           <div className="note-box">
             <h3>Lesart</h3>
-            <p>Der österreichische Eingriff wird hier als Margenbremse gelesen, nicht als starrer Preisdeckel. Deshalb ist der Benchmark gegen Deutschland oft aussagekräftiger als das absolute Preisniveau allein.</p>
+            <p>Der österreichische Eingriff ist eine Margenbegrenzung, kein starrer Preisdeckel. Deshalb ist der Benchmark gegen Deutschland oft aussagekräftiger als das absolute Preisniveau allein.</p>
           </div>
           <div className="note-box">
             <h3>Direkte Beobachtung</h3>
@@ -222,8 +222,8 @@ export default function App() {
 
         <header className="hero-grid">
           <div>
-            <h1>Spritpreise: Benchmark-App rund um die österreichische Spritpreisbremse</h1>
-            <p className="lead">Interaktive Gegenüberstellung von Österreich und Deutschland für Benzin und Diesel. Der Fokus liegt nicht auf einem Preisdeckel, sondern darauf, ob sich Österreich nach dem Eingriff relativ zum deutschen Benchmark anders bewegt.</p>
+            <h1>Wirkt die Spritpreisbremse?</h1>
+            <p className="lead">Interaktive Gegenüberstellung von Benzin- und Dieselpreisen für Österreich und Deutschland. Der Fokus liegt darauf, ob sich Österreich nach dem Eingriff relativ zum deutschen Benchmark anders bewegt.</p>
           </div>
           <div className="card aside-card">
             <h3>Was hier hilft</h3>
