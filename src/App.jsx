@@ -27,8 +27,6 @@ const fuelConfig = {
     atIndexKey: 'at_e10_index',
     deIndexKey: 'de_e10_index',
     spreadKey: 'spread_e10',
-    avgBefore: -0.24065,
-    avgAfter: -0.3246666667,
     icon: Fuel,
   },
   diesel: {
@@ -38,8 +36,6 @@ const fuelConfig = {
     atIndexKey: 'at_diesel_index',
     deIndexKey: 'de_diesel_index',
     spreadKey: 'spread_diesel',
-    avgBefore: -0.159,
-    avgAfter: -0.1788888889,
     icon: Droplets,
   },
 }
@@ -111,6 +107,8 @@ function TooltipBox({ active, payload, label, fuel, mode }) {
 
 function FuelChart({ fuel, mode }) {
   const cfg = fuelConfig[fuel]
+  const Icon = cfg.icon
+
   const chartData = useMemo(() => {
     return data.filter((row) => {
       if (mode === 'absolute') return row[cfg.atKey] != null || row[cfg.deKey] != null
@@ -119,30 +117,72 @@ function FuelChart({ fuel, mode }) {
     })
   }, [cfg, mode])
 
+  const spreadRows = useMemo(() => {
+    return data.filter((row) => row[cfg.spreadKey] != null)
+  }, [cfg])
+
+  const beforePolicyRows = useMemo(() => {
+    return spreadRows.filter((row) => row.date < policyDate)
+  }, [spreadRows])
+
+  const afterPolicyRows = useMemo(() => {
+    return spreadRows.filter((row) => row.date >= policyDate)
+  }, [spreadRows])
+
+  const avgBefore = beforePolicyRows.length
+    ? beforePolicyRows.reduce((sum, row) => sum + row[cfg.spreadKey], 0) / beforePolicyRows.length
+    : null
+
+  const avgAfter = afterPolicyRows.length
+    ? afterPolicyRows.reduce((sum, row) => sum + row[cfg.spreadKey], 0) / afterPolicyRows.length
+    : null
+
+  const shift =
+    avgBefore != null && avgAfter != null
+      ? avgAfter - avgBefore
+      : null
+
   const latestAT = [...data].reverse().find((row) => row[cfg.atKey] != null)
-  const afterPolicy = data.filter((row) => row.date >= policyDate && row[cfg.spreadKey] != null)
-  const minSpread = afterPolicy.length ? Math.min(...afterPolicy.map((row) => row[cfg.spreadKey])) : null
-  const shift = cfg.avgAfter - cfg.avgBefore
-  const Icon = cfg.icon
+  const minSpread = afterPolicyRows.length
+    ? Math.min(...afterPolicyRows.map((row) => row[cfg.spreadKey]))
+    : null
+
+  const yDomain = (() => {
+    if (mode === 'absolute') return [1, 'dataMax + 0.03']
+    if (mode === 'index') return [80, 'dataMax + 1']
+    return ['dataMin - 0.02', 'dataMax + 0.02']
+  })()
 
   return (
     <section className="fuel-section">
       <div className="stats-grid">
         <StatCard
           title="Ø Spread vor 1.4."
-          value={euro(cfg.avgBefore)}
-          subtitle={cfg.avgBefore < 0 ? 'Österreich günstiger als Deutschland' : 'Österreich teurer als Deutschland'}
+          value={euro(avgBefore)}
+          subtitle={
+            avgBefore == null
+              ? 'Kein DE-Vergleich verfügbar'
+              : avgBefore < 0
+                ? 'Österreich günstiger als Deutschland'
+                : 'Österreich teurer als Deutschland'
+          }
           icon={CalendarDays}
         />
         <StatCard
           title="Ø Spread ab 1.4."
-          value={euro(cfg.avgAfter)}
-          subtitle={cfg.avgAfter < 0 ? 'Österreich günstiger als Deutschland' : 'Österreich teurer als Deutschland'}
+          value={euro(avgAfter)}
+          subtitle={
+            avgAfter == null
+              ? 'Kein DE-Vergleich verfügbar'
+              : avgAfter < 0
+                ? 'Österreich günstiger als Deutschland'
+                : 'Österreich teurer als Deutschland'
+          }
           icon={ArrowDownCircle}
         />
         <StatCard
           title="Veränderung im Spread"
-          value={`${shift < 0 ? '-' : '+'}${Math.abs(shift * 100).toFixed(1)} ct/L`}
+          value={shift != null ? `${shift < 0 ? '-' : '+'}${Math.abs(shift * 100).toFixed(1)} ct/L` : '–'}
           subtitle="Nach 1.4. relativ zu Deutschland"
           icon={Icon}
         />
@@ -175,7 +215,10 @@ function FuelChart({ fuel, mode }) {
               <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" tickFormatter={(v) => v.slice(5)} minTickGap={28} />
-                <YAxis tickFormatter={(v) => mode === 'absolute' ? v.toFixed(2) : v.toFixed(0)} />
+                <YAxis
+                  domain={yDomain}
+                  tickFormatter={(v) => mode === 'absolute' ? v.toFixed(2) : v.toFixed(0)}
+                />
                 <Tooltip content={<TooltipBox fuel={fuel} mode={mode} />} />
                 <Legend />
                 <ReferenceLine x={policyDate} stroke="#111827" strokeDasharray="6 6" label={{ value: 'Spritpreisbremse 1.4.', position: 'insideTopRight', fontSize: 12 }} />
@@ -195,7 +238,10 @@ function FuelChart({ fuel, mode }) {
           </div>
           <div className="note-box">
             <h3>Direkte Beobachtung</h3>
-            <p>Beim {fuel === 'e10' ? 'Benzin' : 'Diesel'} wird der AT-DE-Spread nach dem 1.4. im Schnitt {shift < 0 ? 'negativer' : 'weniger negativ'}.</p>
+            <p>
+              Beim {fuel === 'e10' ? 'Benzin' : 'Diesel'} wird der AT-DE-Spread nach dem 1.4. im Schnitt{' '}
+              {shift == null ? 'nicht berechenbar' : shift < 0 ? 'negativer' : 'weniger negativ'}.
+            </p>
           </div>
           <div className="note-box">
             <h3>Nach dem Eingriff</h3>
