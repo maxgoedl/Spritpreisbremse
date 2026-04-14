@@ -1,0 +1,8 @@
+services:
+  spritpreisbremse:
+    build: .
+    ports:
+      - "8080:80"        # change left side to your desired host port
+    environment:
+      - TANKERKOENIG_API_KEY=${TANKERKOENIG_API_KEY}
+    restart: unless-stopped

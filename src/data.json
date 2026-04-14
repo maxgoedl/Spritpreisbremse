@@ -474,16 +474,29 @@
     "spread_diesel": -0.134
   },
   {
-  "date": "2026-04-11",
-  "at_diesel": 2.14,
-  "at_e10": 1.74,
-  "at_e10_index": 89.69072164948454,
-  "at_diesel_index": 94.69026548672568,
-  "de_e10": 2.082,
-  "de_diesel": 2.277,
-  "de_e10_index": 97.24427837459131,
-  "de_diesel_index": 97.22459436379163,
-  "spread_e10": -0.342,
-  "spread_diesel": -0.137
+    "date": "2026-04-11",
+    "at_diesel": 2.14,
+    "at_e10": 1.74,
+    "at_e10_index": 89.69072164948454,
+    "at_diesel_index": 94.69026548672568,
+    "de_e10": 2.082,
+    "de_diesel": 2.277,
+    "de_e10_index": 97.2442783745913,
+    "de_diesel_index": 97.22459436379162,
+    "spread_e10": -0.342,
+    "spread_diesel": -0.137
+  },
+  {
+    "date": "2026-04-14",
+    "at_e10": 1.684,
+    "at_diesel": 1.976,
+    "de_e10": 2.074,
+    "de_diesel": 2.251,
+    "at_e10_index": 86.80412371134021,
+    "at_diesel_index": 87.43362831858408,
+    "de_e10_index": 96.87062120504436,
+    "de_diesel_index": 96.11443210930828,
+    "spread_e10": -0.3899999999999999,
+    "spread_diesel": -0.2749999999999999
   }
 ]
