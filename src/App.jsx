@@ -248,7 +248,7 @@ function FuelChart({ fuel, mode, estimates }) {
           <div className="note-box">
             <h3>Geschätzter Effekt</h3>
             <p>
-              <strong>Benzin (E10):</strong> {cents(estimates.e10.beta)}{' '}
+              <strong>Benzin:</strong> {cents(estimates.e10.beta)}{' '}
               <span className="muted">
                 (95%-KI: {cents(estimates.e10.ciLow)} bis {cents(estimates.e10.ciHigh)})
               </span>
