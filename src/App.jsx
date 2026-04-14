@@ -260,7 +260,7 @@ function FuelChart({ fuel, mode, estimates }) {
               </span>
             </p>
             <p className="muted">
-              Geschätzt als Veränderung Österreichs relativ zu Deutschland ab dem 1.4., wobei tägliche gemeinsame Marktschocks herausgerechnet werden.
+              Geschätzt mittels Diff-in-Diff-Regression mit Tages-Fixeffekten.
             </p>
           </div>
         </div>
