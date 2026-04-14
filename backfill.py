@@ -15,7 +15,9 @@ import argparse
 import json
 from pathlib import Path
 
-DATA_FILE = Path(__file__).parent / "src" / "data.json"
+import os
+_data_dir = os.environ.get("DATA_DIR")
+DATA_FILE = Path(_data_dir) / "data.json" if _data_dir else Path(__file__).parent / "src" / "data.json"
 
 INDEX_BASE = {
     "at_e10":    1.94,

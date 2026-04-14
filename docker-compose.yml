@@ -6,9 +6,9 @@ services:
     environment:
       - TANKERKOENIG_API_KEY=${TANKERKOENIG_API_KEY}
       - BASE_PATH=/sprit/
+      - DATA_DIR=/app/data
     volumes:
       # Persists data.json on the host so price history survives image rebuilds.
-      # On first deploy, copy it out first:
-      #   docker compose cp spritpreisbremse:/app/src/data.json ./data.json
-      - ./data.json:/app/src/data.json
+      # On first deploy: mkdir -p data && cp src/data.json data/
+      - ./data:/app/data
     restart: unless-stopped

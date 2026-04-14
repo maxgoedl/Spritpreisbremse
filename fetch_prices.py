@@ -24,7 +24,10 @@ from pathlib import Path
 # Configuration
 # ---------------------------------------------------------------------------
 
-DATA_FILE = Path(__file__).parent / "src" / "data.json"
+# Inside Docker, DATA_DIR=/app/data (mounted host volume).
+# Locally (no env var), falls back to src/data.json in the repo.
+_data_dir = os.environ.get("DATA_DIR")
+DATA_FILE = Path(_data_dir) / "data.json" if _data_dir else Path(__file__).parent / "src" / "data.json"
 
 # Fixed reference date: 2026-03-31 = 100 for all indices.
 # Update these if the benchmark date is ever changed in App.jsx.
