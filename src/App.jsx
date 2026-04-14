@@ -15,6 +15,7 @@ import {
 } from 'recharts'
 import { Droplets, Fuel, CalendarDays, ArrowDownCircle } from 'lucide-react'
 import data from './data.json'
+import meta from './meta.json'
 
 const policyDate = '2026-04-01'
 const benchmarkStart = '2026-03-12'
@@ -295,6 +296,9 @@ export default function App() {
           <h3>Datenquellen</h3>
           <p>Österreich: E-Control — <a href="https://www.e-control.at/documents/1785851/1811582/2026_04_10_Spritpreisbremse_Pressemappe_Final.pdf/b0e89414-7de1-d57b-012d-9b31c8593e20?t=1775809883097" target="_blank" rel="noreferrer">www.e-control.at</a></p>
           <p>Deutschland: Tankerkönig (MTS-K) — <a href="https://creativecommons.tankerkoenig.de" target="_blank" rel="noreferrer">creativecommons.tankerkoenig.de</a>, Lizenz <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></p>
+          {meta?.lastFetch && (
+            <p className="muted">Letzte Aktualisierung: {new Date(meta.lastFetch).toLocaleString('de-AT', { dateStyle: 'short', timeStyle: 'short', timeZone: 'Europe/Vienna' })} Uhr</p>
+          )}
         </footer>
       </div>
     </div>

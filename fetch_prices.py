@@ -17,7 +17,7 @@ import json
 import os
 import sys
 import urllib.request
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -28,6 +28,9 @@ from pathlib import Path
 # Locally (no env var), falls back to src/data.json in the repo.
 _data_dir = os.environ.get("DATA_DIR")
 DATA_FILE = Path(_data_dir) / "data.json" if _data_dir else Path(__file__).parent / "src" / "data.json"
+
+# meta.json always lives in src/ so Vite can import it at build time.
+META_FILE = Path(__file__).parent / "src" / "meta.json"
 
 # Fixed reference date: 2026-03-31 = 100 for all indices.
 # Update these if the benchmark date is ever changed in App.jsx.
@@ -246,6 +249,14 @@ def main() -> None:
         json.dumps(existing, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+
+    # Write fetch timestamp so the UI can display it
+    fetched_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    META_FILE.write_text(
+        json.dumps({"lastFetch": fetched_at}, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
     print(f"Done — appended entry for {today} to {DATA_FILE}")
 
 
