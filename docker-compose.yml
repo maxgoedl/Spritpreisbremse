@@ -5,4 +5,5 @@ services:
       - "8081:80"
     environment:
       - TANKERKOENIG_API_KEY=${TANKERKOENIG_API_KEY}
+      - BASE_PATH=/sprit/
     restart: unless-stopped

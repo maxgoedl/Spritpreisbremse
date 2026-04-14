@@ -6,8 +6,9 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 
-# Override the GitHub-Pages base path; in Docker we serve at root /
-RUN npx vite build --base /
+# Base path can be overridden at build time, e.g. --build-arg BASE_PATH=/sprit/
+ARG BASE_PATH=/sprit/
+RUN npx vite build --base ${BASE_PATH}
 
 
 # ─── Stage 2: runtime ─────────────────────────────────────────────────────────
