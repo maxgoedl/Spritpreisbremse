@@ -16,6 +16,7 @@ import {
 import { Droplets, Fuel, CalendarDays, ArrowDownCircle } from 'lucide-react'
 import data from './data.json'
 import meta from './meta.json'
+import { estimateDidDailyFE } from './utils/estimates'
 
 const policyDate = '2026-04-01'
 const benchmarkStart = '2026-03-12'
@@ -44,6 +45,11 @@ const fuelConfig = {
 function euro(value, digits = 3) {
   if (value == null || Number.isNaN(value)) return '–'
   return `${value.toFixed(digits)} €`
+}
+
+function cents(value, digits = 1) {
+  if (value == null || Number.isNaN(value)) return '–'
+  return `${(value * 100).toFixed(digits)} ct/L`
 }
 
 function fmtDate(iso) {
@@ -106,7 +112,7 @@ function TooltipBox({ active, payload, label, fuel, mode }) {
   )
 }
 
-function FuelChart({ fuel, mode }) {
+function FuelChart({ fuel, mode, estimates }) {
   const cfg = fuelConfig[fuel]
   const Icon = cfg.icon
 
@@ -142,11 +148,6 @@ function FuelChart({ fuel, mode }) {
     avgBefore != null && avgAfter != null
       ? avgAfter - avgBefore
       : null
-
-  const latestAT = [...data].reverse().find((row) => row[cfg.atKey] != null)
-  const minSpread = afterPolicyRows.length
-    ? Math.min(...afterPolicyRows.map((row) => row[cfg.spreadKey]))
-    : null
 
   const yDomain = (() => {
     if (mode === 'absolute') return [1, 'dataMax + 0.03']
@@ -245,8 +246,22 @@ function FuelChart({ fuel, mode }) {
             </p>
           </div>
           <div className="note-box">
-            <h3>Nach dem Eingriff</h3>
-            <p>Tiefster beobachteter Spread nach dem 1.4.: {euro(minSpread)}. Zuletzt in AT: {euro(latestAT?.[cfg.atKey])}.</p>
+            <h3>Geschätzter Effekt</h3>
+            <p>
+              <strong>Benzin (E10):</strong> {cents(estimates.e10.beta)}{' '}
+              <span className="muted">
+                (95%-KI: {cents(estimates.e10.ciLow)} bis {cents(estimates.e10.ciHigh)})
+              </span>
+            </p>
+            <p>
+              <strong>Diesel:</strong> {cents(estimates.diesel.beta)}{' '}
+              <span className="muted">
+                (95%-KI: {cents(estimates.diesel.ciLow)} bis {cents(estimates.diesel.ciHigh)})
+              </span>
+            </p>
+            <p className="muted">
+              Geschätzt als Veränderung Österreichs relativ zu Deutschland ab dem 1.4., wobei tägliche gemeinsame Marktschocks herausgerechnet werden.
+            </p>
           </div>
         </div>
       </div>
@@ -257,6 +272,13 @@ function FuelChart({ fuel, mode }) {
 export default function App() {
   const [fuel, setFuel] = useState('e10')
   const [mode, setMode] = useState('index')
+
+  const estimates = useMemo(() => {
+    return {
+      e10: estimateDidDailyFE(data, fuelConfig.e10),
+      diesel: estimateDidDailyFE(data, fuelConfig.diesel),
+    }
+  }, [])
 
   return (
     <div className="app-shell">
@@ -290,7 +312,7 @@ export default function App() {
           </div>
         </div>
 
-        <FuelChart fuel={fuel} mode={mode} />
+        <FuelChart fuel={fuel} mode={mode} estimates={estimates} />
 
         <footer className="card sources-card">
           <h3>Datenquellen</h3>
