@@ -225,6 +225,15 @@ def build_entry(today: str, at: dict, de: dict) -> dict:
 # Main
 # ---------------------------------------------------------------------------
 
+def write_meta() -> None:
+    """Write the current UTC timestamp to meta.json so the UI can display it."""
+    fetched_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    META_FILE.write_text(
+        json.dumps({"lastFetch": fetched_at}, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     today = date.today().isoformat()
 
@@ -232,6 +241,7 @@ def main() -> None:
 
     if any(row["date"] == today for row in existing):
         print(f"Entry for {today} already exists — nothing to do.")
+        write_meta()   # still record the cron run time so the UI stays current
         return
 
     print(f"Fetching prices for {today} …")
@@ -249,14 +259,7 @@ def main() -> None:
         json.dumps(existing, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-
-    # Write fetch timestamp so the UI can display it
-    fetched_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    META_FILE.write_text(
-        json.dumps({"lastFetch": fetched_at}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
+    write_meta()
     print(f"Done — appended entry for {today} to {DATA_FILE}")
 
 
