@@ -236,7 +236,7 @@ function FuelChart({ fuel, mode, estimates }) {
         <div className="notes-grid">
           <div className="note-box">
             <h3>Lesart</h3>
-            <p>Der österreichische Eingriff ist eine Margenbegrenzung, kein starrer Preisdeckel. Deshalb ist der Benchmark gegen Deutschland oft aussagekräftiger als das absolute Preisniveau allein.</p>
+            <p>Der österreichische Eingriff ist eine Margenbegrenzung, kein starrer Preisdeckel. Deshalb ist der Benchmark gegen Deutschland aussagekräftiger als das absolute Preisniveau allein.</p>
           </div>
           <div className="note-box">
             <h3>Direkte Beobachtung</h3>
