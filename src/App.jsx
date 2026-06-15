@@ -16,7 +16,7 @@ import {
 import { Droplets, Fuel, CalendarDays, ArrowDownCircle } from 'lucide-react'
 import data from './data.json'
 import meta from './meta.json'
-import { estimateDidDailyFE } from './utils/estimates'
+import { estimateDidDailyFE, germanyPolicyDate } from './utils/estimates'
 
 const policyDate = '2026-04-01'
 const benchmarkStart = '2026-03-12'
@@ -209,7 +209,8 @@ function FuelChart({ fuel, mode, estimates }) {
                 <YAxis tickFormatter={(v) => `${(v * 100).toFixed(0)} ct`} />
                 <Tooltip content={<TooltipBox fuel={fuel} mode={mode} />} />
                 <ReferenceLine y={0} stroke="#666" />
-                <ReferenceLine x={policyDate} stroke="#111827" strokeDasharray="6 6" label={{ value: '1.4.', position: 'insideTopRight', fontSize: 12 }} />
+                <ReferenceLine x={policyDate} stroke="#111827" strokeDasharray="6 6" label={{ value: 'AT-Bremse 1.4.', position: 'insideTopRight', fontSize: 12 }} />
+                <ReferenceLine x={germanyPolicyDate} stroke="#b91c1c" strokeDasharray="6 6" label={{ value: 'DE-Bremse 1.5.', position: 'insideTopRight', fontSize: 12 }} />
                 <Area type="monotone" dataKey={cfg.spreadKey} name="Spread (AT − DE)" stroke="#2563eb" fill="#93c5fd" fillOpacity={0.35} strokeWidth={3} />
                 <Brush dataKey="date" height={22} travellerWidth={10} />
               </AreaChart>
@@ -223,7 +224,8 @@ function FuelChart({ fuel, mode, estimates }) {
                 />
                 <Tooltip content={<TooltipBox fuel={fuel} mode={mode} />} />
                 <Legend />
-                <ReferenceLine x={policyDate} stroke="#111827" strokeDasharray="6 6" label={{ value: 'Spritpreisbremse 1.4.', position: 'insideTopRight', fontSize: 12 }} />
+                <ReferenceLine x={policyDate} stroke="#111827" strokeDasharray="6 6" label={{ value: 'AT-Bremse 1.4.', position: 'insideTopRight', fontSize: 12 }} />
+                <ReferenceLine x={germanyPolicyDate} stroke="#b91c1c" strokeDasharray="6 6" label={{ value: 'DE-Bremse 1.5.', position: 'insideTopRight', fontSize: 12 }} />
                 <ReferenceLine x={benchmarkStart} stroke="#6b7280" strokeDasharray="3 5" label={{ value: 'DE Benchmark startet', position: 'insideBottomLeft', fontSize: 12 }} />
                 <Line type="monotone" dataKey={mode === 'absolute' ? cfg.atKey : cfg.atIndexKey} name="Österreich" stroke="#2563eb" strokeWidth={3} dot={false} connectNulls={false} />
                 <Line type="monotone" dataKey={mode === 'absolute' ? cfg.deKey : cfg.deIndexKey} name="Deutschland" stroke="#3f3f46" strokeWidth={2.5} dot={false} connectNulls={false} strokeOpacity={0.95} />
@@ -260,7 +262,10 @@ function FuelChart({ fuel, mode, estimates }) {
               </span>
             </p>
             <p className="muted">
-              Geschätzt mittels Diff-in-Diff-Regression mit Tages-Fixeffekten.
+              Geschätzt mittels Diff-in-Diff-Regression mit Tages-Fixeffekten, gemessen
+              im Fenster 1.4.–1.5.2026, in dem nur Österreich eine Preisbremse hatte. Ab dem
+              1.5. führte auch Deutschland eine Preisbremse ein und entfällt damit als
+              sauberer Vergleichsmaßstab.
             </p>
           </div>
         </div>
@@ -285,7 +290,8 @@ export default function App() {
       <div className="container">
         <div className="badge-row">
           <span className="badge">Österreich vs. Deutschland</span>
-          <span className="badge badge-light">Policy marker: 01.04.2026</span>
+          <span className="badge badge-light">AT-Bremse: 01.04.2026</span>
+          <span className="badge badge-light">DE-Bremse: 01.05.2026</span>
           <span className="badge badge-light">31.03.2026 = 100</span>
         </div>
 

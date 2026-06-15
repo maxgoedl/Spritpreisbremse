@@ -1,4 +1,9 @@
 export const policyDate = '2026-04-01'
+// Germany introduced its own Spritpreisbremse around the start of May 2026.
+// From this date on Germany is no longer a clean control group, so the
+// diff-in-diff effect is only estimated over the window in which Austria
+// alone had a price brake: [policyDate, germanyPolicyDate).
+export const germanyPolicyDate = '2026-05-01'
 
 function mean(values) {
   if (!values.length) return null
@@ -15,12 +20,17 @@ export function estimateDidDailyFE(rows, cfg) {
     .filter((row) => row[cfg.atKey] != null && row[cfg.deKey] != null)
     .map((row) => ({
       date: row.date,
-      post: row.date >= policyDate ? 1 : 0,
       spread: row[cfg.atKey] - row[cfg.deKey],
     }))
 
-  const pre = comparable.filter((row) => row.post === 0).map((row) => row.spread)
-  const post = comparable.filter((row) => row.post === 1).map((row) => row.spread)
+  const pre = comparable
+    .filter((row) => row.date < policyDate)
+    .map((row) => row.spread)
+  // Only count days where Austria had the brake but Germany did not yet —
+  // once Germany also intervenes, the AT−DE spread stops isolating AT's effect.
+  const post = comparable
+    .filter((row) => row.date >= policyDate && row.date < germanyPolicyDate)
+    .map((row) => row.spread)
 
   if (pre.length < 2 || post.length < 2) {
     return {
